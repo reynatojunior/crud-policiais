@@ -5,13 +5,20 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  //ligando a validacao create-policiais.dto.ts
+  
+  app.enableCors({
+    origin: 'http://localhost:4200', 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
+
+  //ligando a validacao
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       transform: true,
     }),
-  )
+  );
 
   await app.listen(process.env.PORT ?? 3000);
 }

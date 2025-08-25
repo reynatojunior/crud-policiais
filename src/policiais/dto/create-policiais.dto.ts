@@ -12,8 +12,8 @@ export class CreatePoliciaiDto {
     @IsString()
     cpf: string;
 
-    @IsDate()
-    data_nascimento: Date;
+    @IsString()
+    data_nascimento: string;
 
     @IsString()
     matricula: string;
