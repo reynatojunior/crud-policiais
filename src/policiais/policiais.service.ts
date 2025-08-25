@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreatePoliciaiDto } from './dto/create-policiais.dto';
 import { UpdatePoliciaiDto } from './dto/update-policiais.dto';
+import { Policiais } from './entities/policiais.entity';
 
 @Injectable()
 export class PoliciaisService {
+  constructor(
+    @InjectRepository(Policiais)
+    private readonly repository: Repository<Policiais>,
+  ) {}
+
   create(createPoliciaiDto: CreatePoliciaiDto) {
-    return 'This action adds a new policiai';
+    const policial = this.repository.create(createPoliciaiDto);
+    return this.repository.save(policial);
   }
 
   findAll() {
-    return `This action returns all policiais`;
+    return this.repository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} policiai`;
+    return this.repository.findOne({ where: { id } });
   }
 
-  update(id: number, updatePoliciaiDto: UpdatePoliciaiDto) {
-    return `This action updates a #${id} policiai`;
+  async update(id: number, updatePoliciaiDto: UpdatePoliciaiDto) {
+    await this.repository.update(id, updatePoliciaiDto);
+    return this.findOne(id);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} policiai`;
+    return this.repository.delete(id);
   }
 }
