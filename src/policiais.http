@@ -1,0 +1,19 @@
+### Lista todos os policiais cadastrados ###
+
+GET http://localhost/3000/policiais
+
+### Listar um policial
+
+GET http://localhost/3000/policiais/1
+
+### Criar um policial
+
+POST http://localhost/3000/policiais
+
+### Atualizar um policial
+
+PUT http://localhost/3000/policiais/1
+
+### Deletar um policial
+
+DELETE http://localhost/3000/policiais/1
